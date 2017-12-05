@@ -1,0 +1,19 @@
+{
+    "resultCode": 0,
+    "record": [
+        {
+            "approveId": "123123123",
+            "approveType": "报销",
+            "approveTitle": "李晓峰 金额：1570",
+            "approveContent": "报销事由修车",
+            "approveDate": "2017-10-17"
+        },
+        {
+            "approveId": "123123125",
+            "approveType": "报销",
+            "approveTitle": "刘德华 金额：270",
+            "approveContent": "报销事由修车",
+            "approveDate": "2017-10-18"
+        }
+    ]
+}

@@ -1,0 +1,137 @@
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+ @font-face {
+    font-family: 'indexNumRegular';
+    src: url(../font/HELVETICANEUELTPRO-ROMAN.otf);
+    src: local('HELVETICANEUELTPRO-ROMAN.otf Regular'),
+    local('HELVETICANEUELTPRO-ROMAN.otf'),
+    url('../font/HELVETICANEUELTPRO-ROMAN.otf') format('otf');
+  }
+  @font-face {
+    font-family: 'num33Regular';
+    src: url(../font/num33.otf);
+    src: local('num33.otf Regular'),
+    local('num33.otf'),
+    url('../font/num33.otf') format('otf');
+  }
+  @font-face {
+    font-family: 'num87Regular';
+    src: url(../font/num87.otf);
+    src: local('num87.otf Regular'),
+    local('num87.otf'),
+    url('../font/num87.otf') format('otf');
+  }
+  @font-face {
+    font-family: 'num97Regular';
+    src: url(../font/num97.otf);
+    src: local('num97.otf Regular'),
+    local('num97.otf'),
+    url('../font/num97.otf') format('otf');
+  }
+  .Num97 {
+    font-family: num97Regular;
+  }
+  .Num87 {
+    font-family: num87Regular;
+  }
+  .Num33 {
+    font-family: num33Regular;
+  }
+  .indexNum {
+    font-family: indexNumRegular;
+  }
+body,button,textarea,input {
+    font-family: Microsoft YaHei, Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    font-size: 14px;
+}
+ html, body, div, span, applet, object, iframe,
+ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+ a, abbr, acronym, address, big, cite, code,
+ del, dfn, em, img, ins, kbd, q, s, samp,
+ small, strike, strong, sub, sup, tt, var,
+ b, u, i, center,
+ dl, dt, dd, ol, ul, li,
+ fieldset, form, label, legend,
+ table, caption, tbody, tfoot, thead, tr, th, td,
+ article, aside, canvas, details, embed,
+ figure, figcaption, footer, header,
+ menu, nav, output, ruby, section, summary,
+ time, mark, audio, video, input {
+     margin: 0;
+     padding: 0;
+     border: 0;
+     font-family: Microsoft YaHei, Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+     font-size: 14px;
+     font-weight: normal;
+     vertical-align: baseline;
+ }
+ input,button,textarea{/*去掉input聚焦边框*/
+    outline:none
+ }
+ /* HTML5 display-role reset for older browsers */
+ article, aside, details, figcaption, figure,
+ footer, header, menu, nav, section {
+     display: block;
+ }
+ 
+ body {
+     line-height: 1;
+ }
+ 
+ blockquote, q {
+     quotes: none;
+ }
+ 
+ blockquote:before, blockquote:after,
+ q:before, q:after {
+     content: none;
+ }
+ 
+ table {
+     border-collapse: collapse;
+     border-spacing: 0;
+ }
+ 
+ /* custom */
+ a {
+     color: #7e8c8d;
+     text-decoration: none;
+     -webkit-backface-visibility: hidden;
+ }
+ 
+ li {
+     list-style: none;
+ }
+ 
+ ::-webkit-scrollbar {
+     width: 5px;
+     height: 5px;
+ }
+ 
+ ::-webkit-scrollbar-track-piece {
+     background-color: rgba(0, 0, 0, 0.2);
+     -webkit-border-radius: 6px;
+ }
+ 
+ ::-webkit-scrollbar-thumb:vertical {
+     height: 5px;
+     background-color: rgba(125, 125, 125, 0.7);
+     -webkit-border-radius: 6px;
+ }
+ 
+ ::-webkit-scrollbar-thumb:horizontal {
+     width: 5px;
+     background-color: rgba(125, 125, 125, 0.7);
+     -webkit-border-radius: 6px;
+ }
+ 
+ html, body {
+     width: 100%;
+ }
+ 
+ body {
+     -webkit-text-size-adjust: none;
+     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+ }

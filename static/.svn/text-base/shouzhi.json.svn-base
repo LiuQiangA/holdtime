@@ -1,0 +1,18 @@
+{
+  "record": {
+    "totalInNum": "89547",
+    "totalOutNum": "14876",
+    "inCome": {
+      "enrollNum": "23586",
+      "drivingNum": "12365",
+      "manageNum": "5897",
+      "examNUm": "7538"
+    },
+    "pay": [
+      { "value": "435", "name": "车辆加油气" },
+      { "value": "679", "name": "车辆维修保养" },
+      { "value": "848", "name": "工作人员工资" },
+      { "value": "348", "name": "教练员工资" }
+    ]
+  }
+}

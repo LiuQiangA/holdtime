@@ -1,0 +1,21 @@
+{
+    "resultCode": 0,
+    "record": [
+        {
+            "approveId": "10036004",
+            "approveType": "请假",
+            "approveTitle": "李晓峰 请假时间：2017-10-10到2017-10-12",
+            "approveContent": "请假事由：请假一天陪家人看病",
+            "approveApplyDate": "2017-10-10",
+            "approveDate": "2017-10-10"
+        },
+        {
+            "approveId": "10036005",
+            "approveType": "请假",
+            "approveTitle": "李晓峰 请假时间：2017-11-10到2017-11-12",
+            "approveContent": "请假事由：请假一天陪家人看病",
+            "approveApplyDate": "2017-10-10",
+            "approveDate": "2017-10-10"
+        }
+    ]
+}
