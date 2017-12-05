@@ -608,7 +608,7 @@ export default {
           科三学时: false
         },
         right: "0",
-        data: ["全部学时", "科一学时", "科二学时", "科三学时"],
+        data: ["全部", "科一", "科二", "科三"],
         textStyle: {
           color: "#fff",
           fontWeight: "nomal"
@@ -670,7 +670,7 @@ export default {
       ],
       series: [
         {
-          name: "全部学时",
+          name: "全部",
           type: "line",
           symbol: "circle",
           symbolSize: 10,
@@ -682,7 +682,7 @@ export default {
           }
         },
         {
-          name: "科一学时",
+          name: "科一",
           type: "line",
           symbol: "circle",
           symbolSize: 10,
@@ -694,7 +694,7 @@ export default {
           }
         },
         {
-          name: "科二学时",
+          name: "科二",
           type: "line",
           symbol: "circle",
           symbolSize: 10,
@@ -706,7 +706,7 @@ export default {
           }
         },
         {
-          name: "科三学时",
+          name: "科三",
           type: "line",
           symbol: "circle",
           symbolSize: 10,

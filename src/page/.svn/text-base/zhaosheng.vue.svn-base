@@ -624,16 +624,17 @@ export default {
   padding: 21px 0;
   text-align: center;
   color: #fff;
+  font-size: 18px;
 }
 
 .zhaosheng-top-C1 {
   color: #ffb618;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .zhaosheng-top-C2 {
   color: #10c66e;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .zhaosheng-top-right {
