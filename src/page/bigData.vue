@@ -274,11 +274,30 @@ export default {
       .catch(error => {
         alert("网络错误，不能访问");
       });
+    
+    //本月本校收支统计
+    this.$http
+      .get(
+        URL+"/api/iem/statistic/" +
+          appDB.get("companyInfo").companyId,
+          {
+            headers: {'Authorization': appDB.get("companyInfo").token}
+          }
+      )
+      .then(response => {
+        var d = response.data;
+        _this.InTotal = d.record.totalInNum;
+        _this.OutTotal = d.record.totalOutNum;
+      })
+      .catch(error => {
+        console.info(error);
+        alert("网络错误，不能访问");
+      });
   },
   data: () => ({
     companyName: appDB.get("companyInfo").companyName,
-    InTotal: appDB.get("InOutInformation").totalInNum,
-    OutTotal: appDB.get("InOutInformation").totalOutNum,
+    InTotal: '',
+    OutTotal: '',
     carNum: "",
     teacherNum: "",
     studentNum: "",

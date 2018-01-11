@@ -26,15 +26,15 @@
         </div>
       </div>
       <!--totals end-->
-      <!--本月收支明细-->
+      <!--今日收支明细-->
       <div class="inPay">
         <p class="inPay-title">
           <i class="icon iconfont icon-icon pay-font"></i>
-          <span class="inPay-title-text">本月收支明细</span>
+          <span class="inPay-title-text">今日收支明细</span>
         </p>
         <div class="inPay-cont">
           <div class="in-cont">
-            <p class="inOut-head">本月收入
+            <p class="inOut-head">今日收入
               <span class="inOut-head-color1 indexNum">{{totalInNum}}
                 <span class="inOut-head-icon">￥</span>
               </span>
@@ -77,7 +77,7 @@
             </div>
           </div>
           <div class="out-cont">
-            <p class="inOut-head" style="text-align:center">本月支出
+            <p class="inOut-head" style="text-align:center">今日支出
               <span class="inOut-head-color2 indexNum">{{totalOutNum}}
                 <span class="inOut-head-icon">￥</span>
               </span>
@@ -148,6 +148,7 @@ export default {
     IEcharts
   },
   data: () => ({
+    day: "day",
     applyNum: "",
     unqualifiedHours: "",
     notAuditNum: "",
@@ -205,13 +206,13 @@ export default {
     next();
   },
   methods: {
-    //本月收支明细接口
+    //今日收支明细接口
     getInOut() {
       var _this = this;
       this.$http
         .get(
           URL+"/api/iem/statistic/" +
-            appDB.get("companyInfo").companyId,
+            appDB.get("companyInfo").companyId+"/"+_this.day,
             {
               headers: {'Authorization': appDB.get("companyInfo").token}
             }
@@ -219,7 +220,7 @@ export default {
         .then(response => {
           var d = response.data;
           //把返回来的record(收支信息)，放入DB
-          appDB.set("InOutInformation",d.record);
+          // appDB.set("InOutInformation",d.record);
           _this.totalInNum = d.record.totalInNum;
           _this.totalOutNum = d.record.totalOutNum;
           _this.enrollNum = d.record.inCome.enrollNum;

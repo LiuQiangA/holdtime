@@ -71,13 +71,36 @@ export default {
     //本月本校收支统计
     getMonthIn() {
       var _this = this;
-      _this.pie1.series.data[0].value = appDB.get("InOutInformation").inCome.examNum;//考试模拟费
-      _this.pie1.series.data[1].value = appDB.get("InOutInformation").inCome.manageNum;//包库管理费
-      _this.pie1.series.data[2].value = appDB.get("InOutInformation").inCome.drivingNum;//练车加时费
-      _this.pie1.series.data[3].value = appDB.get("InOutInformation").inCome.enrollNum;//学员报名费
-      _this.totalInNum = appDB.get("InOutInformation").totalInNum;//本月收入
-      _this.totalOutNum = appDB.get("InOutInformation").totalOutNum;//本月支出
-      _this.pie2.series.data = appDB.get("InOutInformation").pay//支出详细
+      this.$http
+        .get(
+          URL+"/api/iem/statistic/" +
+            appDB.get("companyInfo").companyId,
+            {
+              headers: {'Authorization': appDB.get("companyInfo").token}
+            }
+        )
+        .then(response => {
+          var d = response.data;
+          _this.totalInNum = d.record.totalInNum;
+          _this.totalOutNum = d.record.totalOutNum;
+          _this.pie1.series.data[3].value = d.record.inCome.enrollNum;
+          _this.pie1.series.data[2].value = d.record.inCome.drivingNum;
+          _this.pie1.series.data[1].value = d.record.inCome.manageNum;
+          _this.pie1.series.data[0].value = d.record.inCome.examNum;
+          //支出
+          _this.pie2.series.data = d.record.pay
+        })
+        .catch(error => {
+          console.info(error);
+          alert("网络错误，不能访问");
+        });
+      // _this.pie1.series.data[0].value = appDB.get("InOutInformation").inCome.examNum;//考试模拟费
+      // _this.pie1.series.data[1].value = appDB.get("InOutInformation").inCome.manageNum;//包库管理费
+      // _this.pie1.series.data[2].value = appDB.get("InOutInformation").inCome.drivingNum;//练车加时费
+      // _this.pie1.series.data[3].value = appDB.get("InOutInformation").inCome.enrollNum;//学员报名费
+      // _this.totalInNum = appDB.get("InOutInformation").totalInNum;//本月收入
+      // _this.totalOutNum = appDB.get("InOutInformation").totalOutNum;//本月支出
+      // _this.pie2.series.data = appDB.get("InOutInformation").pay//支出详细
     }
   },
   data: () => ({
