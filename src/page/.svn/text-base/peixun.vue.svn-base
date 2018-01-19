@@ -141,6 +141,7 @@ export default {
         showLabels: true,
         showScale: true
       });
+      this.getCompanyTrainInfo(); //获取驾校培训学时统计数据接口
     }),
     //调用沙盒
     this.getCount();
@@ -161,6 +162,11 @@ export default {
         .siblings()
         .removeClass("on");
     });
+
+    //日期
+    var da = new Date();
+    var year = da.getFullYear();
+    this.year = year;
 
     this.getNotTrainInfo(); // 获取驾校未培训统计信息接口
     this.getCompanyTrainInfo(); //获取驾校培训学时统计数据接口
@@ -267,12 +273,12 @@ export default {
             seriesData3.push(v3); //科目三纵轴数值
           });
           //渲染图表
-          _this.line.xAxis.data = xAxisData;
+          // _this.line.xAxis.data = xAxisData;
           _this.line.series[0].data = seriesDataAll;
           _this.line.series[1].data = seriesData1;
           _this.line.series[2].data = seriesData2;
           _this.line.series[3].data = seriesData3;
-          _this.line.title.text = "2017年度学时分析";
+          _this.line.title.text = this.year + "年度学时分析";
         })
         .catch(error => {
           alert("网络错误，不能访问");
@@ -314,12 +320,12 @@ export default {
             seriesData3.push(v3); //科目三纵轴数值
           });
           //渲染图表
-          _this.line.xAxis.data = xAxisData;
+          // _this.line.xAxis.data = xAxisData;
           _this.line.series[0].data = seriesDataAll;
           _this.line.series[1].data = seriesData1;
           _this.line.series[2].data = seriesData2;
           _this.line.series[3].data = seriesData3;
-          _this.line.title.text = "2017年度学时审核分析";
+          _this.line.title.text = this.year + "年度学时审核分析";
         })
         .catch(error => {
           alert("网络错误，不能访问");
@@ -365,7 +371,7 @@ export default {
             seriesDataAll.push(all); //纵轴数值
           });
           //渲染图表
-          _this.line2.xAxis.data = xAxisData;
+          // _this.line2.xAxis.data = xAxisData;
           _this.line2.series[0].data = seriesDataAll;
         })
         .catch(error => {
@@ -451,7 +457,7 @@ export default {
             seriesDataAll.push(all); //全部纵轴数值
           });
           //渲染图表
-          _this.line2.xAxis.data = xAxisData;
+          // _this.line2.xAxis.data = xAxisData;
           _this.line2.series[0].data = seriesDataAll;
         })
         .catch(error => {
@@ -566,7 +572,7 @@ export default {
             seriesData.push(v); //纵轴数值
           });
           //渲染图表
-          _this.line2.xAxis.data = xAxisData;
+          // _this.line2.xAxis.data = xAxisData;
           _this.line2.series[1].data = seriesData;
         })
         .catch(error => {
@@ -575,6 +581,7 @@ export default {
     }
   },
   data: () => ({
+    year: '',
     kemu1: 30,//科目一成本预估值
     kemu2: 30,//科目二成本预估值
     kemu3: 30,//科目三成本预估值
@@ -590,7 +597,7 @@ export default {
     SUB3_DURATION2: "", //科三未培训理论学时
     line: {
       title: {
-        text: "2017年度学时分析",
+        text: "",
         textStyle: {
           color: "#fff",
           fontWeight: "nomal"
@@ -623,7 +630,20 @@ export default {
       calculable: true,
       xAxis: {
         type: "category",
-        data: [],
+        data: [
+          "1月",
+          "2月",
+          "3月",
+          "4月",
+          "5月",
+          "6月",
+          "7月",
+          "8月",
+          "9月",
+          "10月",
+          "11月",
+          "12月"
+        ],
         axisLabel: {
           color: "#ffffff"
         },
@@ -740,7 +760,7 @@ export default {
         //     '科三学时': false,
         // },
         right: "0",
-        data: ["2017年", "2016年"],
+        data: ["本年度", "上年度"],
         textStyle: {
           color: "#fff",
           fontWeight: "nomal"
@@ -755,7 +775,20 @@ export default {
       calculable: true,
       xAxis: {
         type: "category",
-        data: [],
+        data: [
+          "1月",
+          "2月",
+          "3月",
+          "4月",
+          "5月",
+          "6月",
+          "7月",
+          "8月",
+          "9月",
+          "10月",
+          "11月",
+          "12月"
+        ],
         axisLabel: {
           color: "#ffffff"
         },
@@ -802,7 +835,7 @@ export default {
       ],
       series: [
         {
-          name: "2017年",
+          name: "本年度",
           type: "line",
           symbol: "circle",
           symbolSize: 10,
@@ -814,7 +847,7 @@ export default {
           }
         },
         {
-          name: "2016年",
+          name: "上年度",
           type: "line",
           symbol: "circle",
           symbolSize: 10,

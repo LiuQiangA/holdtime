@@ -98,7 +98,7 @@ export default {
 
     this.getMonthZS(); //获取驾校本月招生情况接口
     this.getYearData(); //获取驾校本年度上年度招生信息接口
-    this.getPercent(); //获取驾校招生占比数据接口
+    this.getPercent(); //获取驾校招生占比数据接口，
   },
   methods: {
     //获取驾校本月招生情况接口

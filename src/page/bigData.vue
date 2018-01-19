@@ -211,7 +211,7 @@ export default {
           _this.bar.xAxis.axisLabel.interval = 0;
         }
         //渲染图表
-        _this.bar.xAxis.data = xAxisData;
+        // _this.bar.xAxis.data = xAxisData;
         _this.bar.series.data = seriesData;
       })
       .catch(error => {
@@ -238,7 +238,7 @@ export default {
           _this.bar2.xAxis.axisLabel.interval = 0;
         }
         //渲染图表
-        _this.bar2.xAxis.data = xAxisData;
+        // _this.bar2.xAxis.data = xAxisData;
         _this.bar2.series.data = seriesData;
       })
       .catch(error => {
@@ -328,7 +328,7 @@ export default {
       },
       xAxis:{
           type: "category",
-          data: [],
+          data : ['1','2','3','4','5','6','7','8','9','10','11','12'],
           axisTick: {
             lineStyle: {
               width: 0,
@@ -392,7 +392,7 @@ export default {
       },
       xAxis:{
           type: "category",
-          data: [],
+          data : ['1','2','3','4','5','6','7','8','9','10','11','12'],
           axisTick: {
             lineStyle: {
               width: 0,

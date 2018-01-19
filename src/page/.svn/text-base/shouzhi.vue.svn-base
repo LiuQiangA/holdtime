@@ -25,14 +25,14 @@
                     <i class="icon iconfont icon-tongji"></i>本校年度收支分析</p>
                 <div class="qingkuangFX">
                     <div class="month-echart">
-                        <p class="in-head">2017年度<span class="in-color">收入</span>分析</p>
+                        <p class="in-head">{{year}}年度<span class="in-color">收入</span>分析</p>
                         <IEcharts :option="line"></IEcharts>
                     </div>
                 </div>
                 <div class="qingkuangFX margin-top">
                     <div class="month-echart">
-                        <p class="out-head">2017年度<span class="out-color">支出</span>分析</p>
-                        <IEcharts :option="line3"></IEcharts>
+                        <p class="out-head">{{year}}年度<span class="out-color">支出</span>分析</p>
+                        <IEcharts :option="line2"></IEcharts>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                     <i class="icon iconfont icon-shouru-copy-copy"></i>本校年度总收入与上一年度对比分析</p>
                 <div class="qingkuangFX">
                     <div class="month-echart">
-                        <IEcharts :option="line2"></IEcharts>
+                        <IEcharts :option="line3"></IEcharts>
                     </div>
                 </div>
             </div>
@@ -65,20 +65,34 @@ export default {
     var RWH = WH - 160;
     $(".message-cont").height(RWH);
 
-    this.getMonthIn()//本月本校收支统计
+    //日期
+    var da = new Date();
+    var year = da.getFullYear();
+    this.year = year;
+    this.lastyear = year-1;
+
+    this.getMonthIn(); //本月本校收支统计
+    this.getYearIn();//报名费
+    this.getYearIn1();
+    this.getYearIn2();
+    this.getYearIn3();
+    this.getYearOut();//加油气
+    this.getYearOut1();
+    this.getYearOut2();
+    this.getYearOut3();
+    this.getYearOut4();
+    this.getYearOut5();
+    this.getYearZSR();//获取本年度收入统计
+    this.getYearZSR1();
   },
   methods: {
     //本月本校收支统计
     getMonthIn() {
       var _this = this;
       this.$http
-        .get(
-          URL+"/api/iem/statistic/" +
-            appDB.get("companyInfo").companyId,
-            {
-              headers: {'Authorization': appDB.get("companyInfo").token}
-            }
-        )
+        .get(URL + "/api/iem/statistic/" + appDB.get("companyInfo").companyId, {
+          headers: { Authorization: appDB.get("companyInfo").token }
+        })
         .then(response => {
           var d = response.data;
           _this.totalInNum = d.record.totalInNum;
@@ -88,10 +102,9 @@ export default {
           _this.pie1.series.data[1].value = d.record.inCome.manageNum;
           _this.pie1.series.data[0].value = d.record.inCome.examNum;
           //支出
-          _this.pie2.series.data = d.record.pay
+          _this.pie2.series.data = d.record.pay;
         })
         .catch(error => {
-          console.info(error);
           alert("网络错误，不能访问");
         });
       // _this.pie1.series.data[0].value = appDB.get("InOutInformation").inCome.examNum;//考试模拟费
@@ -101,11 +114,266 @@ export default {
       // _this.totalInNum = appDB.get("InOutInformation").totalInNum;//本月收入
       // _this.totalOutNum = appDB.get("InOutInformation").totalOutNum;//本月支出
       // _this.pie2.series.data = appDB.get("InOutInformation").pay//支出详细
+    },
+    //获取本年度收入统计http://xx.com/api/iem/ndsrstatistic/{companyId}/{type}
+    getYearIn() {//报名费
+      this.$http
+        .get(
+          URL +
+            "/api/iem/ndsrstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.bmf,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line.series[0].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    getYearIn1() {//包库费
+      this.$http
+        .get(
+          URL +
+            "/api/iem/ndsrstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.bkf,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line.series[1].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    getYearIn2() {//加时费
+      this.$http
+        .get(
+          URL +
+            "/api/iem/ndsrstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.jsf,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line.series[2].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    getYearIn3() {//考试模拟费
+      this.$http
+        .get(
+          URL +
+            "/api/iem/ndsrstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.ksmnf,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line.series[3].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    //获取本年度支出统计http://xx.com/api/iem/ndzcstatistic/{companyId}/{type}
+    getYearOut() {//加油气
+      this.$http
+        .get(
+          URL +
+            "/api/iem/ndzcstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.jyq,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line2.series[0].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    getYearOut1() {//维修保养
+      this.$http
+        .get(
+          URL +
+            "/api/iem/ndzcstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.wxby,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line2.series[1].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    getYearOut2() {//车辆保险
+      this.$http
+        .get(
+          URL +
+            "/api/iem/ndzcstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.clbx,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line2.series[2].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    getYearOut3() {//费用报销
+      this.$http
+        .get(
+          URL +
+            "/api/iem/ndzcstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.fybx,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line2.series[3].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    getYearOut4() {//员工工资
+      this.$http
+        .get(
+          URL +
+            "/api/iem/ndzcstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.yggz,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line2.series[4].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    getYearOut5() {//教练员工资
+      this.$http
+        .get(
+          URL +
+            "/api/iem/ndzcstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.jlygz,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line2.series[5].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    //获取本年度收入统计http://xx.com/api/iem/zsrstatistic/{companyId}/{year}
+    getYearZSR(){
+      this.$http
+        .get(
+          URL +
+            "/api/iem/zsrstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.year,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line3.series[0].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
+    },
+    getYearZSR1(){
+      this.$http
+        .get(
+          URL +
+            "/api/iem/zsrstatistic/" +
+            appDB.get("companyInfo").companyId +
+            "/" +
+            this.lastyear,
+          {
+            headers: { Authorization: appDB.get("companyInfo").token }
+          }
+        )
+        .then(res => {
+          let d = res.data;
+          this.line3.series[1].data = d.record;
+        })
+        .catch(error => {
+          alert("网络错误，不能访问");
+        });
     }
   },
   data: () => ({
-    totalInNum: '',//本月收入
-    totalOutNum: '',//本月支出
+    year: '',
+    lastyear: '',
+    bmf: 'bmf',
+    jsf: 'jsf',
+    bkf: 'bkf',
+    ksmnf: 'ksmnf',
+    jyq: 'jyq',
+    wxby: 'wxby',
+    clbx: 'clbx',
+    fybx: 'fybx',
+    yggz: 'yggz',
+    jlygz: 'jlygz',
+    totalInNum: "", //本月收入
+    totalOutNum: "", //本月支出
     pie1: {
       tooltip: {
         trigger: "item",
@@ -171,7 +439,7 @@ export default {
         type: "pie",
         startAngle: 120,
         radius: ["60%", "77%"],
-        color: ["#46b43f", "#177e67", "#fff", "#ffd800","#2cc4c6"],
+        color: ["#46b43f", "#177e67", "#fff", "#ffd800", "#2cc4c6", "#00aff0"],
         label: {
           normal: {
             formatter: "{b}",
@@ -289,20 +557,7 @@ export default {
           type: "line",
           symbol: "circle",
           symbolSize: 10,
-          data: [
-            890,
-            547,
-            1897,
-            5627,
-            4578,
-            3327,
-            1990,
-            2725,
-            987,
-            654,
-            5604,
-            3323
-          ],
+          data: [],
           itemStyle: {
             normal: {
               color: "#00b77a"
@@ -317,20 +572,7 @@ export default {
           type: "line",
           symbol: "circle",
           symbolSize: 10,
-          data: [
-            658,
-            347,
-            2897,
-            4627,
-            5578,
-            327,
-            3990,
-            725,
-            2987,
-            1654,
-            604,
-            323
-          ],
+          data: [],
           itemStyle: {
             normal: {
               color: "#feb71f"
@@ -345,20 +587,7 @@ export default {
           type: "line",
           symbol: "circle",
           symbolSize: 10,
-          data: [
-            2658,
-            3347,
-            2897,
-            627,
-            578,
-            2327,
-            1990,
-            2725,
-            987,
-            654,
-            2604,
-            1323
-          ],
+          data: [],
           itemStyle: {
             normal: {
               color: "#007ea7"
@@ -373,20 +602,7 @@ export default {
           type: "line",
           symbol: "circle",
           symbolSize: 10,
-          data: [
-            2658,
-            3347,
-            2897,
-            627,
-            578,
-            2327,
-            1990,
-            2725,
-            987,
-            654,
-            2604,
-            1323
-          ],
+          data: [],
           itemStyle: {
             normal: {
               color: "#ff731f"
@@ -399,7 +615,7 @@ export default {
       ]
     },
 
-    line3: {
+    line2: {
       tooltip: {
         trigger: "axis"
       },
@@ -408,10 +624,13 @@ export default {
         selected: {
           加油加气: true,
           维修保养: false,
-          教职工工资: false
+          车辆保险: false,
+          费用报销: false,
+          员工工资: false,
+          教练员工资: false
         },
         right: "0",
-        data: ["加油加气", "维修保养", "教职工工资"],
+        data: ["加油加气", "维修保养", "车辆保险", "费用报销", "员工工资","教练员工资"],
         textStyle: {
           color: "#fff",
           fontWeight: "nomal"
@@ -492,23 +711,10 @@ export default {
           type: "line",
           symbol: "circle",
           symbolSize: 10,
-          data: [
-            890,
-            547,
-            1897,
-            5627,
-            4578,
-            3327,
-            1990,
-            2725,
-            987,
-            654,
-            5604,
-            3323
-          ],
+          data: [],
           itemStyle: {
             normal: {
-              color: "#00b77a"
+              color: "#46b43f"
             }
           },
           markPoint: {
@@ -520,20 +726,37 @@ export default {
           type: "line",
           symbol: "circle",
           symbolSize: 10,
-          data: [
-            658,
-            347,
-            2897,
-            4627,
-            5578,
-            327,
-            3990,
-            725,
-            2987,
-            1654,
-            604,
-            323
-          ],
+          data: [],
+          itemStyle: {
+            normal: {
+              color: "#177e67"
+            }
+          },
+          markPoint: {
+            data: [{ type: "max", name: "最大值" }]
+          }
+        },
+        {
+          name: "车辆保险",
+          type: "line",
+          symbol: "circle",
+          symbolSize: 10,
+          data: [],
+          itemStyle: {
+            normal: {
+              color: "#afb050"
+            }
+          },
+          markPoint: {
+            data: [{ type: "max", name: "最大值" }]
+          }
+        },
+        {
+          name: "费用报销",
+          type: "line",
+          symbol: "circle",
+          symbolSize: 10,
+          data: [],
           itemStyle: {
             normal: {
               color: "#feb71f"
@@ -544,27 +767,29 @@ export default {
           }
         },
         {
-          name: "教职工工资",
+          name: "员工工资",
           type: "line",
           symbol: "circle",
           symbolSize: 10,
-          data: [
-            2658,
-            3347,
-            2897,
-            627,
-            578,
-            2327,
-            1990,
-            2725,
-            987,
-            654,
-            2604,
-            1323
-          ],
+          data: [],
           itemStyle: {
             normal: {
-              color: "#ff731f"
+              color: "#2cc4c6"
+            }
+          },
+          markPoint: {
+            data: [{ type: "max", name: "最大值" }]
+          }
+        },
+        {
+          name: "教练员工资",
+          type: "line",
+          symbol: "circle",
+          symbolSize: 10,
+          data: [],
+          itemStyle: {
+            normal: {
+              color: "#00aff0"
             }
           },
           markPoint: {
@@ -574,20 +799,13 @@ export default {
       ]
     },
 
-    line2: {
+    line3: {
       tooltip: {
         trigger: "axis"
       },
-
       legend: {
-        // selected: {
-        //     '全部学时': true,
-        //     '科一学时': false,
-        //     '科二学时': false,
-        //     '科三学时': false,
-        // },
         right: "0",
-        data: ["2017年", "2016年"],
+        data: ["本年度","上年度"],
         textStyle: {
           color: "#fff",
           fontWeight: "nomal"
@@ -664,24 +882,11 @@ export default {
       ],
       series: [
         {
-          name: "2017年",
+          name: "本年度",
           type: "line",
           symbol: "circle",
           symbolSize: 10,
-          data: [
-            890,
-            547,
-            1897,
-            5627,
-            4578,
-            3327,
-            1990,
-            2725,
-            987,
-            654,
-            5604,
-            3323
-          ],
+          data: [],
           itemStyle: {
             normal: {
               color: "#00b77a"
@@ -689,24 +894,11 @@ export default {
           }
         },
         {
-          name: "2016年",
+          name: "上年度",
           type: "line",
           symbol: "circle",
           symbolSize: 10,
-          data: [
-            658,
-            347,
-            2897,
-            4627,
-            5578,
-            327,
-            3990,
-            725,
-            2987,
-            1654,
-            604,
-            323
-          ],
+          data: [],
           itemStyle: {
             normal: {
               color: "#feb71f"
@@ -891,7 +1083,7 @@ export default {
   color: #fff;
 }
 .out-head {
-  position: absolute;
+  
   top: 25px;
   left: 28px;
   font-size: 12px;
@@ -907,5 +1099,3 @@ export default {
   color: #fff;
 }
 </style>
-
-
