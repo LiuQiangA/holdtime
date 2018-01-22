@@ -5,7 +5,7 @@
             <div class="footer-item xiaoxi" @click="goMes"><i class="icon iconfont icon-xiaoxi"></i><el-badge :is-dot="TorM" class="footerText">消息</el-badge></div>
             <div class="footer-item shuju" @click="goBd"><img src="../../static/images/big-date.png" class="footer-bigD"><div class="footerText">大数据</div></div>
             <div class="footer-item guankong" @click="goClgk"><i class="icon iconfont icon-qichepeijian"></i><div class="footerText">车辆管控</div></div>
-            <div class="footer-item shenpi"  @click="goSp"><i class="icon iconfont icon-shenpi"></i><el-badge :is-dot="TorF" class="footerText">审批</el-badge></div>
+            <div class="footer-item shenpi"  @click="goSp"><el-badge :value="$store.state.shenpiNum" :max="10" class="item"><i class="icon iconfont icon-shenpi"></i></el-badge><div class="footerText">审批</div></div>
         </div>
     </div>
 </template>
@@ -18,6 +18,7 @@ export default {
     return {
       TorF: false,
       TorM: false,
+      // shenpiNum: 0,
     };
   },
   mounted: function() {
@@ -108,13 +109,15 @@ export default {
         alert("网络错误，不能访问");
       });
     },
-    
   },
   
 };
 </script>
 
 <style scoped>
+.el-badge .el-badge__content.is-fixed{
+  top: -30px !important;
+}
 .el-badge {
   display: block;
 }

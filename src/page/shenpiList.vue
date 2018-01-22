@@ -52,13 +52,6 @@ layer.config({
 
 export default {
   name: "shenpiList",
-  data() {
-    return {
-      dspList: [],
-      month: '',
-      day: '',
-    };
-  },
   mounted: function() {
     //防止在登陆页没有登陆时候直接手动改变url访问
     initPage.checkLogin();
@@ -73,11 +66,11 @@ export default {
     this.getDSPlist(); // 获取待审批列表
   },
   //根据路由跳转变换下面导航样式
-  beforeRouteEnter (to, from, next) {
+  beforeRouteEnter(to, from, next) {
     // 在渲染该组件的对应路由被 confirm 前调用
     // 不！能！获取组件实例 `this`
     // 因为当钩子执行前，组件实例还没被创建
-    if(to.fullPath=="/shenpiList"){
+    if (to.fullPath == "/shenpiList") {
       $(".shenpi")
         .addClass("on")
         .siblings()
@@ -85,24 +78,35 @@ export default {
     }
     next();
   },
+  data() {
+    return {
+      dspList: [],
+      month: "",
+      day: ""
+    };
+  },
   methods: {
     // 获取待审批列表
     getDSPlist() {
       var _this = this;
       this.$http
-        .post(URL+"/api/approve/getWaitApproveList", {
+        .post(URL + "/api/approve/getWaitApproveList", {
           companyId: appDB.get("companyInfo").companyId,
           currentPage: 1,
           pageSize: 10
         })
         .then(response => {
+          // console.info(this.$store.state.shenpiNum)
           //后台返回来的数据vue规范都存放在response.data中
-          var d = response.data;
-          if (d.record == null) {
-            $(".no-icon").css("display", "block");
-          };
-          _this.dspList = d.record;
-          
+          this.$nextTick(() => {
+            var d = response.data;
+            if (d.record != null) {
+              _this.dspList = d.record;
+              this.$store.state.shenpiNum = d.record.length;
+            } else {
+              $(".no-icon").css("display", "block");
+            }
+          });
         })
         .catch(error => {
           alert("网络错误，不能访问");
@@ -118,25 +122,29 @@ export default {
           btn: ["确定", "取消"] //按钮
         },
         function() {
-          _this.$http.post(URL+"/api/approve/dealApprove", {
-            approveId: approveId,
-            dealFlag: 1,
-            dealPerson: appDB.get("companyInfo").phoneNumber
-          })
-          .then(response=>{
-            var d = response.data;
-            if (d.resultCode == 0) {
-              layer.msg("已同意");
-              $(el.target).val("已同意").siblings().hide();//el.target为dom对象，所以$(el.target)[0] === el.target
-              $(el.target).replaceWith($(el.target).clone(false));//操作完以后取消该元素上绑定的事件
-            } else {
-              layer.msg(d.msg, function() {});
-            }
-          })
-          .catch(error => {
-            alert("网络错误，不能访问");
-          });
-        },
+          _this.$http
+            .post(URL + "/api/approve/dealApprove", {
+              approveId: approveId,
+              dealFlag: 1,
+              dealPerson: appDB.get("companyInfo").phoneNumber
+            })
+            .then(response => {
+              var d = response.data;
+              if (d.resultCode == 0) {
+                layer.msg("已同意");
+                $(el.target)
+                  .val("已同意")
+                  .siblings()
+                  .hide(); //el.target为dom对象，所以$(el.target)[0] === el.target
+                $(el.target).replaceWith($(el.target).clone(false)); //操作完以后取消该元素上绑定的事件
+              } else {
+                layer.msg(d.msg, function() {});
+              }
+            })
+            .catch(error => {
+              alert("网络错误，不能访问");
+            });
+        }
       );
     },
 
@@ -149,29 +157,33 @@ export default {
           btn: ["确定", "取消"] //按钮
         },
         function() {
-          _this.$http.post(URL+"/api/approve/dealApprove", {
-            approveId: approveId,
-            dealFlag: -1,
-            dealPerson: appDB.get("companyInfo").phoneNumber
-          })
-          .then(response => {
-            var d = response.data;
-            if (d.resultCode == 0) {
-              layer.msg("已驳回");
-              $(el.target).val("已驳回").siblings().hide();//el.target为dom对象，所以$(el.target)[0] === el.target
-              $(el.target).replaceWith($(el.target).clone(false));//操作完以后取消该元素上绑定的事件
-            } else {
-              layer.msg(d.msg, function() {});
-            }
-          })
-          .catch(error => {
-            alert("网络错误，不能访问");
-          });
-        },
+          _this.$http
+            .post(URL + "/api/approve/dealApprove", {
+              approveId: approveId,
+              dealFlag: -1,
+              dealPerson: appDB.get("companyInfo").phoneNumber
+            })
+            .then(response => {
+              var d = response.data;
+              if (d.resultCode == 0) {
+                layer.msg("已驳回");
+                $(el.target)
+                  .val("已驳回")
+                  .siblings()
+                  .hide(); //el.target为dom对象，所以$(el.target)[0] === el.target
+                $(el.target).replaceWith($(el.target).clone(false)); //操作完以后取消该元素上绑定的事件
+              } else {
+                layer.msg(d.msg, function() {});
+              }
+            })
+            .catch(error => {
+              alert("网络错误，不能访问");
+            });
+        }
       );
-    },
+    }
     //审批操作,驳回 end
-  },
+  }
 };
 </script>
 
@@ -297,5 +309,3 @@ export default {
   margin-right: 5px;
 }
 </style>
-
-
