@@ -975,6 +975,7 @@ export default {
   left: 0;
   line-height: 22px;
   font-size: 14px;
+  text-indent: 10px;
 }
 
 .out-num {
@@ -986,10 +987,11 @@ export default {
   left: 0;
   line-height: 22px;
   font-size: 14px;
+  text-indent: 10px;
 }
 
 .inout-num-total {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .yunyingQK-head {
@@ -1083,7 +1085,6 @@ export default {
   color: #fff;
 }
 .out-head {
-  
   top: 25px;
   left: 28px;
   font-size: 12px;
