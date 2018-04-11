@@ -46,6 +46,13 @@
   .message-cont-head-t {
     float: left;
     height: 39px;
+    color: #fff;
+    margin-right: 20px;
+  }
+
+  .message-cont-head-t.on {
+    float: left;
+    height: 39px;
     border-bottom: 4px solid #00b77a;
     color: #00b77a;
   }

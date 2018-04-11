@@ -9,8 +9,8 @@
     <div class="message-body">
       <div class="message-cont">
         <div class="message-cont-head">
-          <span class="message-cont-head-t">
-            <i class="icon iconfont icon-wodefankui"></i>消息列表</span>
+          <span class="message-cont-head-t on"><i class="icon iconfont icon-wodefankui"></i>消息列表</span>
+          <span class="message-cont-head-t">预警列表</span>
           <span class="fabuNew" @click="goPublishNew">发布公告</span>
         </div>
         <div class="no-icon">
@@ -48,6 +48,9 @@ export default {
     };
   },
   mounted: function() {
+    $(".message-cont-head-t").click(function(el){
+      $(el.target).addClass("on").siblings().removeClass("on")
+    })
     //防止在登陆页没有登陆时候直接手动改变url访问
     initPage.checkLogin();
     //获取当前月和日
@@ -100,7 +103,7 @@ export default {
     //发布公告
     goPublishNew() {
       this.$router.push("/publishNew");
-    }
+    },
   }
 };
 </script>
