@@ -13,10 +13,10 @@
 							<span class="yunyingQK-nomal">教学学时</span>
 						</p>
 						<div class="yunyingQK-nomal-num">{{jsmnxs.t1sub2Hours+jsmnxs.t1sub3Hours+jsmnxs.t2sub2Hours+jsmnxs.t2sub3Hours}}
-							<span class="yunyingQK-danwei-nomal"> 小时</span>
+							<span class="yunyingQK-danwei-nomal">小时</span>
 						</div>
-						<span class="yunyingQK-kemu">科目二：加时{{jsmnxs.t1sub2Hours}}，模拟{{jsmnxs.t1sub3Hours}}</span>
-						<span class="yunyingQK-kemu">科目三：加时{{jsmnxs.t1sub3Hours}}，模拟{{jsmnxs.t2sub3Hours}}</span>
+						<span class="yunyingQK-kemu">科二：加时{{jsmnxs.t1sub2Hours}},模拟{{jsmnxs.t1sub3Hours}}</span>
+						<span class="yunyingQK-kemu">科三：加时{{jsmnxs.t1sub3Hours}},模拟{{jsmnxs.t2sub3Hours}}</span>
 					</div>
 					<div class="xueshiT-item">
 						<p class="yunyingQK-head">本月车辆
@@ -25,8 +25,8 @@
 						<div class="yunyingQK-nomal-num">{{jxlc.totalMileage}}
 							<span class="yunyingQK-danwei-nomal"> km</span>
 						</div>
-						<span class="yunyingQK-kemu">科目二：{{jxlc.sub2Mileage}}</span>
-						<span class="yunyingQK-kemu">科目三：{{jxlc.sub3Mileage}}</span>
+						<span class="yunyingQK-kemu">科二：{{jxlc.sub2Mileage}}</span>
+						<span class="yunyingQK-kemu">科三：{{jxlc.sub3Mileage}}</span>
 					</div>
 				</div>
 				<div class="xueshiT">
@@ -601,7 +601,7 @@
 	}
 	
 	.yunyingQK-nomal-num {
-		width: 160px;
+		width: 55%;
 		float: left;
 		padding: 15px 0;
 		font-size: 40px;
@@ -625,10 +625,12 @@
 	}
 	
 	.yunyingQK-kemu {
+		width: 45%;
 		float: right;
 		margin-top: 15px;
 		color: #fff;
 		font-size: 12px;
+		text-align: right;
 	}
 	
 	.icon-fanhui {
