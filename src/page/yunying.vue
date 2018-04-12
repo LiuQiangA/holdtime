@@ -565,6 +565,7 @@ export default {
 }
 
 .yunyingQK-nomal-num {
+    width: 180px;
     float: left;
     padding: 15px 0;
     font-size: 40px;
@@ -572,6 +573,7 @@ export default {
 }
 
 .yunyingQK-Unnomal-num {
+    width: 180px;
     float: left;
     padding: 15px 0;
     font-size: 40px;
